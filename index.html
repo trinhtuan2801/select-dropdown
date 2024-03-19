@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <div class="select-wrapper">
+      <div class="select-input">
+        <input readonly id="mobile-prefix" />
+      </div>
+      <div class="select-dropdown-wrapper">
+        <div class="select-dropdown-backdrop"></div>
+        <div class="select-dropdown">
+          <div class="select-dropdown-option" data-value="default">
+            -default-
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="height: 500px; background-color: bisque"></div>
+    <script>
+      const options = [1, 2, 3, 4, 5];
+      const dropdown = document.querySelector('.select-dropdown');
+      options.forEach((option, index) => {
+        const node = document.createElement('div');
+        node.className = 'select-dropdown-option';
+        node.dataset.value = option;
+        node.textContent = `Option ${index + 1}`;
+        dropdown.appendChild(node);
+      });
+
+      const dropdownWrapper = document.querySelector(
+        '.select-dropdown-wrapper',
+      );
+      const backdrop = document.querySelector('.select-dropdown-backdrop');
+      const selectInput = document.querySelector('.select-input');
+
+      selectInput.addEventListener('click', () => {
+        dropdownWrapper.style.display = 'block';
+      });
+      backdrop.addEventListener('click', () => {
+        dropdownWrapper.style.display = 'none';
+      });
+
+      dropdown.childNodes.forEach((item, key) => {
+        item.addEventListener('click', () => {
+          dropdownWrapper.style.display = 'none';
+          document.getElementById('mobile-prefix').value = item.dataset.value;
+        });
+      });
+    </script>
+  </body>
+</html>
